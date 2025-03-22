@@ -28,9 +28,9 @@
             sm: "calc(var(--radius) - 4px)",
           },
           animation: {
-            'gradient-x': 'gradient-x 15s ease infinite',
-            'gradient-y': 'gradient-y 15s ease infinite',
-            'gradient-xy': 'gradient-xy 15s ease infinite',
+            'gradient-x': 'gradient-x 12s ease infinite',
+            'gradient-y': 'gradient-y 12s ease infinite',
+            'gradient-xy': 'gradient-xy 12s ease infinite',
           },
           keyframes: {
             'gradient-y': {
@@ -79,14 +79,14 @@
     .animated-gradient {
       background: linear-gradient(
         135deg,
-        rgba(30, 30, 30, 0.9) 0%,
-        rgba(50, 50, 50, 0.8) 25%,
-        rgba(40, 40, 40, 0.9) 50%,
-        rgba(60, 60, 60, 0.8) 75%,
-        rgba(30, 30, 30, 0.9) 100%
+        rgba(35, 35, 35, 1) 0%,
+        rgba(60, 60, 60, 0.95) 25%,
+        rgba(45, 45, 45, 1) 50%,
+        rgba(70, 70, 70, 0.95) 75%,
+        rgba(35, 35, 35, 1) 100%
       );
       background-size: 400% 400%;
-      animation: gradient-xy 15s ease infinite;
+      animation: gradient-xy 12s ease infinite;
       position: relative;
     }
     
@@ -99,8 +99,8 @@
       bottom: 0;
       background: radial-gradient(
         circle at 30% 20%,
-        rgba(100, 100, 100, 0.2) 0%,
-        transparent 50%
+        rgba(125, 70, 152, 0.15) 0%,
+        transparent 60%
       );
       pointer-events: none;
     }
@@ -114,8 +114,8 @@
       bottom: 0;
       background: radial-gradient(
         circle at 70% 80%,
-        rgba(80, 80, 80, 0.2) 0%,
-        transparent 50%
+        rgba(125, 70, 152, 0.1) 0%,
+        transparent 60%
       );
       pointer-events: none;
     }
@@ -146,20 +146,33 @@
     .glow:hover {
       box-shadow: 0 0 25px rgba(125, 70, 152, 0.7);
     }
+
+    @media (max-width: 640px) {
+      .animated-gradient {
+        background: linear-gradient(
+          135deg,
+          rgba(35, 35, 35, 1) 0%,
+          rgba(60, 60, 60, 0.95) 25%,
+          rgba(45, 45, 45, 1) 50%,
+          rgba(70, 70, 70, 0.95) 75%,
+          rgba(35, 35, 35, 1) 100%
+        );
+      }
+    }
   </style>
 </head>
 <body class="bg-black text-white">
   <div class="min-h-screen flex flex-col">
     <!-- Hero Section with outer gradient - removed top padding -->
     <div class="outer-gradient flex items-center justify-center overflow-hidden">
-      <div class="w-full max-w-7xl mx-auto p-6 relative">
+      <div class="w-full max-w-7xl mx-auto p-4 sm:p-6 relative">
         <!-- Background with animated gradient effect -->
-        <div class="absolute inset-0 rounded-3xl animated-gradient"></div>
+        <div class="absolute inset-0 rounded-2xl sm:rounded-3xl animated-gradient"></div>
         
         <!-- Main container with rounded corners -->
-        <div class="relative bg-transparent rounded-3xl p-8 md:p-12 overflow-hidden border border-zinc-800">
+        <div class="relative bg-transparent rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 overflow-hidden border border-zinc-800">
           <!-- Header -->
-          <header class="flex justify-between items-center mb-16">
+          <header class="flex justify-between items-center mb-8 sm:mb-16">
             <div class="flex items-center">
               <!-- Shield icon -->
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mr-2">
@@ -167,46 +180,46 @@
               </svg>
               <span class="text-xl font-medium">Onyx</span>
             </div>
-            <button class="bg-zinc-800/70 hover:bg-zinc-700 text-white border border-zinc-700 rounded-full px-6 py-2 transition-all duration-300">
+            <button class="bg-zinc-800/70 hover:bg-zinc-700 text-white border border-zinc-700 rounded-full px-4 sm:px-6 py-2 transition-all duration-300 text-sm sm:text-base">
               Pre-Order Now
             </button>
           </header>
 
           <!-- Hero Section -->
-          <div class="text-center mb-16 max-w-4xl mx-auto">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-zinc-200">
+          <div class="text-center mb-10 sm:mb-16 max-w-4xl mx-auto">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-zinc-200">
               Ultra-Secure <br /> Portable Onion Server
             </h1>
-            <p class="text-lg text-zinc-400 mb-10 max-w-2xl mx-auto">
+            <p class="text-base sm:text-lg text-zinc-400 mb-6 sm:mb-10 max-w-2xl mx-auto px-2">
               Complete anonymity with zero internet exposure. Run your own local onion network
-              <br />without the vulnerabilities of traditional servers.
+              <br class="hidden sm:block" />without the vulnerabilities of traditional servers.
             </p>
             <div class="flex flex-col items-center">
-              <button class="bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full px-8 py-6 text-lg mb-3 transition-all duration-300 glow">
+              <button class="bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg mb-3 transition-all duration-300 glow w-64 sm:w-auto">
                 Pre-Order Now
               </button>
-              <span class="text-sm text-zinc-500">Limited first batch available</span>
+              <span class="text-xs sm:text-sm text-zinc-500">Limited first batch available</span>
             </div>
           </div>
 
           <!-- App Preview -->
-          <div class="relative mt-24 mb-8">
+          <div class="relative mt-16 sm:mt-24 mb-6 sm:mb-8">
             <!-- Feature Pills -->
-            <div class="absolute -left-4 top-1/3 z-10">
-              <div class="bg-zinc-800/80 backdrop-blur-sm px-5 py-3 rounded-full text-sm font-medium shadow-lg">
+            <div class="absolute -left-2 sm:-left-4 top-1/3 z-10 hidden sm:block">
+              <div class="bg-zinc-800/80 backdrop-blur-sm px-3 sm:px-5 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium shadow-lg">
                 Air-Gapped Security
               </div>
             </div>
-            <div class="absolute -right-4 bottom-1/3 z-10">
-              <div class="bg-zinc-800/80 backdrop-blur-sm px-5 py-3 rounded-full text-sm font-medium shadow-lg">
+            <div class="absolute -right-2 sm:-right-4 bottom-1/3 z-10 hidden sm:block">
+              <div class="bg-zinc-800/80 backdrop-blur-sm px-3 sm:px-5 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium shadow-lg">
                 Zero Digital Footprint
               </div>
             </div>
 
             <!-- Server Interface Preview -->
-            <div class="bg-zinc-800 rounded-xl p-4 max-w-4xl mx-auto shadow-2xl border border-zinc-700 relative z-0 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-500">
+            <div class="bg-zinc-800 rounded-xl p-3 sm:p-4 max-w-4xl mx-auto shadow-2xl border border-zinc-700 relative z-0 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-500 overflow-x-hidden">
               <div class="flex">
-                <!-- Sidebar -->
+                <!-- Sidebar - hidden on mobile -->
                 <div class="hidden md:block w-48 pr-4 border-r border-zinc-700">
                   <div class="flex items-center mb-6">
                     <!-- Shield icon -->
@@ -273,25 +286,42 @@
                   </div>
                 </div>
 
+                <!-- Mobile menu - only visible on small screens -->
+                <div class="md:hidden flex items-center justify-between w-full mb-4 pb-2 border-b border-zinc-700">
+                  <div class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    <span class="text-sm font-medium">Onyx</span>
+                  </div>
+                  <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="4" x2="20" y1="12" y2="12"></line>
+                      <line x1="4" x2="20" y1="6" y2="6"></line>
+                      <line x1="4" x2="20" y1="18" y2="18"></line>
+                    </svg>
+                  </div>
+                </div>
+
                 <!-- Server Content -->
-                <div class="flex-1 pl-4">
+                <div class="flex-1 pl-0 md:pl-4">
                   <div class="mb-4">
-                    <div class="flex items-center justify-between mb-2">
-                      <div class="flex items-center">
+                    <div class="flex items-center justify-between mb-2 flex-wrap">
+                      <div class="flex items-center mb-2 sm:mb-0">
                         <span class="text-sm font-medium">Server Status</span>
                         <div class="ml-4 bg-zinc-700/50 rounded-full px-2 py-0.5 text-xs flex items-center">
                           <span class="w-2 h-2 bg-[#7D4698] rounded-full mr-1"></span>
                           <span>Active</span>
                         </div>
                       </div>
-                      <div class="text-xs text-zinc-500">
-                        Last Security Scan: Today 10:45 AM - No Vulnerabilities Detected
+                      <div class="text-xs text-zinc-500 w-full sm:w-auto">
+                        Last Scan: Today 10:45 AM - No Vulnerabilities
                       </div>
                     </div>
                   </div>
 
                   <div class="flex mb-4">
-                    <div class="mr-3">
+                    <div class="mr-3 hidden sm:block">
                       <div class="w-8 h-8 bg-zinc-700 rounded-full overflow-hidden flex items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -304,19 +334,20 @@
                       <div class="text-sm font-medium mb-1">Onion Network Status: Operational</div>
                       <div class="text-xs text-zinc-500 mb-2">Local Network Only - No External Connections</div>
                       <div class="text-xs text-zinc-400 space-y-2">
-                        <p>Your Onyx server is running securely with all protection layers active. The air-gapped configuration is preventing any unauthorized access attempts. Current uptime is 72 hours with zero security incidents.</p>
+                        <p>Your Onyx server is running securely with all protection layers active. The air-gapped configuration is preventing any unauthorized access attempts.</p>
                         <p class="font-medium mt-2">Security Measures Active:</p>
                         <ol class="list-decimal pl-5 space-y-0.5">
                           <li>Physical isolation protocol</li>
                           <li>Multi-layer encryption</li>
                           <li>Zero-knowledge authentication</li>
                         </ol>
-                        <p class="mt-2">Your server's unique .onion address is safely accessible only through authorized devices on your local network.</p>
+                        <p class="mt-2 hidden sm:block">Your server's unique .onion address is safely accessible only through authorized devices on your local network.</p>
                       </div>
                     </div>
                   </div>
 
-                  <div class="absolute right-4 top-4 flex items-center space-x-2">
+                  <!-- These elements are hidden on mobile -->
+                  <div class="absolute right-4 top-4 flex items-center space-x-2 hidden sm:flex">
                     <div class="w-8 h-8 bg-zinc-700 rounded-full overflow-hidden flex items-center justify-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
@@ -331,7 +362,7 @@
                     </div>
                   </div>
 
-                  <div class="absolute right-4 top-24">
+                  <div class="absolute right-4 top-24 hidden sm:block">
                     <div class="text-xs font-medium">System Information</div>
                     <div class="text-xs text-zinc-500">Onyx Secure Server v1.2.4</div>
                     <div class="text-xs text-zinc-500 mt-2">CPU: 8% | RAM: 12% | Storage: 23%</div>
@@ -358,14 +389,14 @@
     </div>
 
     <!-- Features Section -->
-    <section class="py-20 bg-zinc-950 outer-gradient">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4">Uncompromising Security</h2>
-          <p class="text-zinc-400 max-w-2xl mx-auto">Onyx combines hardware isolation with advanced encryption to create the most secure portable server available.</p>
+    <section class="py-12 sm:py-20 bg-zinc-950 outer-gradient">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Uncompromising Security</h2>
+          <p class="text-zinc-400 max-w-2xl mx-auto px-2">Onyx combines hardware isolation with advanced encryption to create the most secure portable server available.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <!-- Feature 1 -->
           <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
@@ -450,14 +481,14 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-20 bg-black outer-gradient">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4">Trusted by Security Experts</h2>
-          <p class="text-zinc-400 max-w-2xl mx-auto">See why cybersecurity professionals choose Onyx for their most sensitive communications.</p>
+    <section class="py-12 sm:py-20 bg-black outer-gradient">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Trusted by Security Experts</h2>
+          <p class="text-zinc-400 max-w-2xl mx-auto px-2">See why cybersecurity professionals choose Onyx for their most sensitive communications.</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <!-- Testimonial 1 -->
           <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative">
             <div class="absolute -top-4 -left-4 text-5xl text-[#7D4698] opacity-30">"</div>
@@ -501,43 +532,43 @@
     </section>
 
     <!-- Pricing Section -->
-    <section class="py-20 bg-zinc-950 outer-gradient">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4">Choose Your Security Level</h2>
-          <p class="text-zinc-400 max-w-2xl mx-auto">All Onyx devices feature our core security architecture with zero internet exposure.</p>
+    <section class="py-12 sm:py-20 bg-zinc-950 outer-gradient">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Choose Your Security Level</h2>
+          <p class="text-zinc-400 max-w-2xl mx-auto px-2">All Onyx devices feature our core security architecture with zero internet exposure.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Standard Plan -->
-          <div class="bg-zinc-900 rounded-xl p-8 border border-zinc-800 transition-all duration-300 pricing-card">
+          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800 transition-all duration-300 pricing-card">
             <h3 class="text-xl font-bold mb-2">Onyx Standard</h3>
             <p class="text-zinc-400 mb-6">Essential security for individuals</p>
             <div class="mb-6">
-              <span class="text-4xl font-bold">$299</span>
+              <span class="text-3xl sm:text-4xl font-bold">$299</span>
               <span class="text-zinc-400">one-time</span>
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Air-gapped architecture</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Local onion routing</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Up to 5 secure connections</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>1-year hardware warranty</span>
@@ -549,43 +580,43 @@
           </div>
           
           <!-- Professional Plan -->
-          <div class="bg-zinc-900 rounded-xl p-8 border border-[#7D4698]/30 transition-all duration-300 pricing-card relative transform scale-105">
+          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-[#7D4698]/30 transition-all duration-300 pricing-card relative transform scale-105 sm:scale-105">
             <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#7D4698] text-white px-4 py-1 rounded-full text-sm font-medium">
               Most Popular
             </div>
             <h3 class="text-xl font-bold mb-2">Onyx Professional</h3>
             <p class="text-zinc-400 mb-6">Advanced protection for teams</p>
             <div class="mb-6">
-              <span class="text-4xl font-bold">$599</span>
+              <span class="text-3xl sm:text-4xl font-bold">$599</span>
               <span class="text-zinc-400">one-time</span>
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Everything in Standard</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Up to 20 secure connections</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Hardware security module</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Physical tamper detection</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>3-year hardware warranty</span>
@@ -597,40 +628,40 @@
           </div>
           
           <!-- Enterprise Plan -->
-          <div class="bg-zinc-900 rounded-xl p-8 border border-zinc-800 transition-all duration-300 pricing-card">
+          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800 transition-all duration-300 pricing-card">
             <h3 class="text-xl font-bold mb-2">Onyx Enterprise</h3>
             <p class="text-zinc-400 mb-6">Maximum security for organizations</p>
             <div class="mb-6">
-              <span class="text-4xl font-bold">$1,299</span>
+              <span class="text-3xl sm:text-4xl font-bold">$1,299</span>
               <span class="text-zinc-400">one-time</span>
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Everything in Professional</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Unlimited secure connections</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Quantum-resistant encryption</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Custom security configuration</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>5-year hardware warranty</span>
@@ -645,10 +676,10 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-20 bg-black outer-gradient">
-      <div class="max-w-4xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+    <section class="py-12 sm:py-20 bg-black outer-gradient">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-10 sm:mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
           <p class="text-zinc-400">Everything you need to know about Onyx</p>
         </div>
         
@@ -681,17 +712,17 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-zinc-950 relative overflow-hidden outer-gradient">
+    <section class="py-12 sm:py-20 bg-zinc-950 relative overflow-hidden outer-gradient">
       <div class="absolute inset-0 animated-gradient opacity-50"></div>
-      <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         <div class="text-center">
-          <h2 class="text-4xl font-bold mb-6">Secure Your Communications Today</h2>
-          <p class="text-xl text-zinc-300 mb-10 max-w-2xl mx-auto">Join organizations worldwide who trust Onyx for their most sensitive data and communications.</p>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">Secure Your Communications Today</h2>
+          <p class="text-lg sm:text-xl text-zinc-300 mb-6 sm:mb-10 max-w-2xl mx-auto">Join organizations worldwide who trust Onyx for their most sensitive data and communications.</p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button class="bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 glow">
+            <button class="bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 glow w-64 sm:w-auto">
               Pre-Order Now
             </button>
-            <button class="bg-transparent hover:bg-zinc-800 text-white border border-zinc-700 font-medium rounded-full px-8 py-4 text-lg transition-all duration-300">
+            <button class="bg-transparent hover:bg-zinc-800 text-white border border-zinc-700 font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 w-64 sm:w-auto">
               Request Demo
             </button>
           </div>
@@ -701,9 +732,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-16 border-t border-zinc-900 outer-gradient">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer class="bg-black py-12 sm:py-16 border-t border-zinc-900 outer-gradient">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-12">
           <!-- Company Info -->
           <div class="col-span-1 md:col-span-1">
             <div class="flex items-center mb-6">
@@ -773,7 +804,7 @@
           </div>
         </div>
         
-        <div class="mt-12 pt-8 border-t border-zinc-900 text-center">
+        <div class="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-zinc-900 text-center">
           <p class="text-zinc-500">© 2025 Onyx Security Technologies. All rights reserved.</p>
         </div>
       </div>
