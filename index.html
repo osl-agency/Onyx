@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Onyx: Ultra-sicherer, portabler Onion-Server für lokale Netzwerke. Vollständige Anonymität ohne Internet-Exposition.">
+  <meta name="keywords" content="Onyx, Onion Server, Sicherheit, Anonymität, Air-Gapped, Portable Server, Lokales Netzwerk">
+  <meta name="author" content="Onyx Security Technologies">
   <title>Onyx - Portable Onion Server</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -31,6 +35,10 @@
             'gradient-x': 'gradient-x 12s ease infinite',
             'gradient-y': 'gradient-y 12s ease infinite',
             'gradient-xy': 'gradient-xy 12s ease infinite',
+            'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+            'fade-in': 'fade-in 0.6s ease-out forwards',
+            'pulse': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin': 'spin 1s linear infinite',
           },
           keyframes: {
             'gradient-y': {
@@ -62,6 +70,40 @@
                 'background-size': '200% 200%',
                 'background-position': 'right center'
               }
+            },
+            'fade-in-up': {
+              '0%': {
+                opacity: '0',
+                transform: 'translateY(20px)'
+              },
+              '100%': {
+                opacity: '1',
+                transform: 'translateY(0)'
+              }
+            },
+            'fade-in': {
+              '0%': {
+                opacity: '0'
+              },
+              '100%': {
+                opacity: '1'
+              }
+            },
+            'pulse': {
+              '0%, 100%': {
+                opacity: '1'
+              },
+              '50%': {
+                opacity: '0.5'
+              }
+            },
+            'spin': {
+              '0%': {
+                transform: 'rotate(0deg)'
+              },
+              '100%': {
+                transform: 'rotate(360deg)'
+              }
             }
           }
         },
@@ -74,6 +116,7 @@
       margin: 0;
       padding: 0;
       background: black;
+      scroll-behavior: smooth;
     }
     
     .animated-gradient {
@@ -130,21 +173,143 @@
       background-size: 100% 100%;
     }
     
+    /* Optimized hover effects for feature cards */
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    
     .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+      background-color: rgba(40, 40, 40, 0.8);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2), 0 0 15px rgba(125, 70, 152, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    /* Optimized hover effects for pricing cards */
+    .pricing-card {
+      transition: all 0.3s ease;
     }
     
     .pricing-card:hover {
-      transform: scale(1.02);
+      background-color: rgba(40, 40, 40, 0.8);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2), 0 0 15px rgba(125, 70, 152, 0.2);
+      transform: scale(1.01);
     }
     
     .glow {
       box-shadow: 0 0 15px rgba(125, 70, 152, 0.5);
+      transition: all 0.3s ease;
     }
     
     .glow:hover {
       box-shadow: 0 0 25px rgba(125, 70, 152, 0.7);
+    }
+
+    /* Scroll animation classes */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .scroll-fade.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Loader styles */
+    .loader-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    
+    .loader {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid rgba(125, 70, 152, 0.2);
+      border-top-color: #7D4698;
+      animation: spin 1s linear infinite;
+    }
+    
+    /* Sticky header styles */
+    .sticky-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(-100%);
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+    }
+    
+    .sticky-header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #7D4698;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      z-index: 40;
+    }
+    
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      background-color: #9355B0;
+      transform: translateY(-3px);
+    }
+    
+    /* Focus styles for accessibility */
+    a:focus, button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(125, 70, 152, 0.5);
+    }
+    
+    /* Skip to content link for accessibility */
+    .skip-to-content {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #7D4698;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      transition: top 0.3s ease;
+    }
+    
+    .skip-to-content:focus {
+      top: 0;
     }
 
     @media (max-width: 640px) {
@@ -158,11 +323,47 @@
           rgba(30, 30, 30, 1) 100%
         );
       }
+      
+      .sticky-header {
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>
 <body class="bg-black text-white">
-  <div class="min-h-screen flex flex-col">
+  <!-- Skip to content link for accessibility -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!-- Page loader -->
+  <div class="loader-container" id="loader">
+    <div class="flex flex-col items-center">
+      <div class="loader mb-4"></div>
+      <div class="text-white text-lg font-medium">Loading Onyx</div>
+    </div>
+  </div>
+
+  <!-- Sticky Header -->
+  <header class="sticky-header px-4 sm:px-6 py-4 border-b border-zinc-800/50" id="sticky-header">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mr-2" aria-label="Onyx Shield Logo">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span class="text-xl font-medium">Onyx</span>
+      </div>
+      <nav class="hidden md:flex space-x-6 items-center">
+        <a href="#features" class="text-zinc-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Features</a>
+        <a href="#testimonials" class="text-zinc-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Testimonials</a>
+        <a href="#pricing" class="text-zinc-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Pricing</a>
+        <a href="#faq" class="text-zinc-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">FAQ</a>
+      </nav>
+      <button class="bg-[#7D4698] hover:bg-[#9355B0] text-white border border-[#7D4698] rounded-full px-4 sm:px-6 py-2 transition-all duration-300 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-black">
+        Pre-Order Now
+      </button>
+    </div>
+  </header>
+
+  <div class="min-h-screen flex flex-col" id="main-content">
     <!-- Hero Section with outer gradient - removed top padding -->
     <div class="outer-gradient flex items-center justify-center overflow-hidden">
       <div class="w-full max-w-7xl mx-auto p-4 sm:p-6 relative">
@@ -175,18 +376,18 @@
           <header class="flex justify-between items-center mb-8 sm:mb-16">
             <div class="flex items-center">
               <!-- Shield icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mr-2" aria-label="Onyx Shield Logo">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               </svg>
               <span class="text-xl font-medium">Onyx</span>
             </div>
-            <button class="bg-zinc-800/70 hover:bg-zinc-700 text-white border border-zinc-700 rounded-full px-4 sm:px-6 py-2 transition-all duration-300 text-sm sm:text-base">
+            <button class="bg-zinc-800/70 hover:bg-zinc-700 text-white border border-zinc-700 rounded-full px-4 sm:px-6 py-2 transition-all duration-300 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900" aria-label="Pre-Order Now">
               Pre-Order Now
             </button>
           </header>
 
           <!-- Hero Section -->
-          <div class="text-center mb-10 sm:mb-16 max-w-4xl mx-auto">
+          <div class="text-center mb-10 sm:mb-16 max-w-4xl mx-auto animate-fade-in">
             <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-zinc-200">
               Ultra-Secure <br /> Portable Onion Server
             </h1>
@@ -195,7 +396,7 @@
               <br class="hidden sm:block" />without the vulnerabilities of traditional servers.
             </p>
             <div class="flex flex-col items-center">
-              <button class="bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg mb-3 transition-all duration-300 glow w-64 sm:w-auto">
+              <button class="bg-[#7D4698] hover:bg-[#9355B0] text-white font-medium rounded-full px-6 sm:px-8 py-4 sm:py-6 text-base sm:text-lg mb-3 transition-all duration-300 glow w-64 sm:w-auto focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900" aria-label="Pre-Order Onyx Now">
                 Pre-Order Now
               </button>
               <span class="text-xs sm:text-sm text-zinc-500">Limited first batch available</span>
@@ -203,7 +404,7 @@
           </div>
 
           <!-- App Preview -->
-          <div class="relative mt-16 sm:mt-24 mb-6 sm:mb-8">
+          <div class="relative mt-16 sm:mt-24 mb-6 sm:mb-8 animate-fade-in" style="animation-delay: 0.3s;">
             <!-- Feature Pills -->
             <div class="absolute -left-2 sm:-left-4 top-1/3 z-10 hidden sm:block">
               <div class="bg-zinc-800/80 backdrop-blur-sm px-3 sm:px-5 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium shadow-lg">
@@ -217,20 +418,20 @@
             </div>
 
             <!-- Server Interface Preview - Redesigned for clarity -->
-            <div class="bg-zinc-800 rounded-xl p-3 sm:p-4 max-w-4xl mx-auto shadow-2xl border border-zinc-700 relative z-0 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-500 overflow-hidden">
+            <div class="bg-zinc-800 rounded-xl p-3 sm:p-4 max-w-4xl mx-auto shadow-2xl border border-zinc-700 relative z-0 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-500 overflow-hidden" aria-label="Onyx Server Dashboard Interface Preview">
               <!-- Desktop Layout -->
               <div class="hidden md:flex">
                 <!-- Sidebar -->
                 <div class="w-48 pr-4 border-r border-zinc-700">
                   <div class="flex items-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-2" aria-label="Onyx Mini Logo">
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
                     <span class="text-sm font-medium">Onyx</span>
                   </div>
                   <div class="space-y-4">
                     <div class="flex items-center text-white text-sm bg-zinc-700/50 rounded-md px-2 py-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3" aria-label="Dashboard Icon">
                         <rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect>
                         <rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect>
                         <line x1="6" x2="6.01" y1="6" y2="6"></line>
@@ -239,7 +440,7 @@
                       <span>Dashboard</span>
                     </div>
                     <div class="flex items-center text-zinc-400 text-sm hover:bg-zinc-700/30 rounded-md px-2 py-1.5 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3" aria-label="Network Icon">
                         <path d="M9 2v6c0 1.1-.9 2-2 2H2"></path>
                         <path d="M13 5.95V2"></path>
                         <path d="M20 8a8 8 0 0 0-16 0"></path>
@@ -249,14 +450,14 @@
                       <span>Network</span>
                     </div>
                     <div class="flex items-center text-zinc-400 text-sm hover:bg-zinc-700/30 rounded-md px-2 py-1.5 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3" aria-label="Security Icon">
                         <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                       </svg>
                       <span>Security</span>
                     </div>
                     <div class="flex items-center text-zinc-400 text-sm hover:bg-zinc-700/30 rounded-md px-2 py-1.5 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3" aria-label="Access Icon">
                         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                         <circle cx="9" cy="7" r="4"></circle>
                         <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -265,7 +466,7 @@
                       <span>Access</span>
                     </div>
                     <div class="flex items-center text-zinc-400 text-sm hover:bg-zinc-700/30 rounded-md px-2 py-1.5 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-3" aria-label="Settings Icon">
                         <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
                       </svg>
@@ -288,7 +489,7 @@
                     <div class="flex items-center">
                       <div class="text-xs text-zinc-400 mr-4">Last Scan: Today 10:45 AM</div>
                       <div class="w-6 h-6 bg-zinc-700 rounded-full overflow-hidden flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="User Icon">
                           <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                           <circle cx="12" cy="7" r="4"></circle>
                         </svg>
@@ -301,7 +502,7 @@
                     <!-- Status Card -->
                     <div class="bg-zinc-700/30 rounded-lg p-3">
                       <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2" aria-label="Shield Check Icon">
                           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                           <path d="m9 12 2 2 4-4"></path>
                         </svg>
@@ -314,7 +515,7 @@
                     <!-- Network Card -->
                     <div class="bg-zinc-700/30 rounded-lg p-3">
                       <div class="flex items-center mb-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2" aria-label="Network Icon">
                           <path d="M9 2v6c0 1.1-.9 2-2 2H2"></path>
                           <path d="M13 5.95V2"></path>
                           <path d="M20 8a8 8 0 0 0-16 0"></path>
@@ -331,7 +532,7 @@
                   <!-- System Report -->
                   <div class="bg-zinc-700/20 rounded-lg p-4 mb-4">
                     <div class="flex items-center mb-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2" aria-label="Document Icon">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
                         <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -345,25 +546,25 @@
                       <div class="font-medium mb-1">Security Measures Active:</div>
                       <div class="grid grid-cols-2 gap-2">
                         <div class="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1" aria-label="Check Icon">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                           <span>Physical isolation</span>
                         </div>
                         <div class="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1" aria-label="Check Icon">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                           <span>Multi-layer encryption</span>
                         </div>
                         <div class="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1" aria-label="Check Icon">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                           <span>Zero-knowledge auth</span>
                         </div>
                         <div class="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1" aria-label="Check Icon">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                           <span>Tamper detection</span>
@@ -399,7 +600,7 @@
                 <!-- Mobile Header -->
                 <div class="flex items-center justify-between border-b border-zinc-700 pb-3 mb-4">
                   <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 mr-2" aria-label="Onyx Mini Logo">
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg>
                     <span class="text-sm font-medium">Onyx</span>
@@ -409,7 +610,7 @@
                       <span class="w-2 h-2 bg-[#7D4698] rounded-full mr-1"></span>
                       <span>Active</span>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Menu Icon">
                       <line x1="4" x2="20" y1="12" y2="12"></line>
                       <line x1="4" x2="20" y1="6" y2="6"></line>
                       <line x1="4" x2="20" y1="18" y2="18"></line>
@@ -431,8 +632,7 @@
                   <div class="bg-zinc-700/30 rounded-lg p-3">
                     <div class="flex items-center justify-between mb-2">
                       <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
-                          <path d="M12 22s8-  stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2" aria-label="Shield Check Icon">
                           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                           <path d="m9 12 2 2 4-4"></path>
                         </svg>
@@ -446,7 +646,7 @@
                   <!-- System Report -->
                   <div class="bg-zinc-700/20 rounded-lg p-3">
                     <div class="flex items-center mb-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2" aria-label="Document Icon">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
                         <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -460,13 +660,13 @@
                       <div class="font-medium mb-1">Security Measures:</div>
                       <div class="grid grid-cols-2 gap-1">
                         <div class="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1" aria-label="Check Icon">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                           <span>Physical isolation</span>
                         </div>
                         <div class="flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-1" aria-label="Check Icon">
                             <polyline points="20 6 9 17 4 12"></polyline>
                           </svg>
                           <span>Encryption</span>
@@ -503,18 +703,18 @@
     </div>
 
     <!-- Features Section -->
-    <section class="py-12 sm:py-20 bg-zinc-950 outer-gradient">
+    <section id="features" class="py-12 sm:py-20 bg-zinc-950 outer-gradient">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-10 sm:mb-16">
+        <div class="text-center mb-10 sm:mb-16 scroll-fade">
           <h2 class="text-3xl sm:text-4xl font-bold mb-4">Uncompromising Security</h2>
           <p class="text-zinc-400 max-w-2xl mx-auto px-2">Onyx combines hardware isolation with advanced encryption to create the most secure portable server available.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           <!-- Feature 1 -->
-          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
+          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card scroll-fade">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]" aria-label="Lock Icon">
                 <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
               </svg>
@@ -524,9 +724,9 @@
           </div>
           
           <!-- Feature 2 -->
-          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
+          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card scroll-fade" style="transition-delay: 0.1s;">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]" aria-label="Network Icon">
                 <path d="M9 2v6c0 1.1-.9 2-2 2H2"></path>
                 <path d="M13 5.95V2"></path>
                 <path d="M20 8a8 8 0 0 0-16 0"></path>
@@ -539,9 +739,9 @@
           </div>
           
           <!-- Feature 3 -->
-          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
+          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card scroll-fade" style="transition-delay: 0.2s;">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]" aria-label="Server Icon">
                 <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"></path>
                 <path d="M3 10h18"></path>
                 <path d="M7 15h.01"></path>
@@ -553,9 +753,9 @@
           </div>
           
           <!-- Feature 4 -->
-          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
+          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card scroll-fade" style="transition-delay: 0.3s;">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]" aria-label="Footprint Icon">
                 <path d="M2 12a5 5 0 0 0 5 5 8 8 0 0 1 5 2 8 8 0 0 1 5-2 5 5 0 0 0 5-5V7H2Z"></path>
                 <path d="M6 11V7"></path>
                 <path d="M10 11V7"></path>
@@ -568,9 +768,9 @@
           </div>
           
           <!-- Feature 5 -->
-          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
+          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card scroll-fade" style="transition-delay: 0.4s;">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]" aria-label="Shield Check Icon">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
                 <path d="m9 12 2 2 4-4"></path>
               </svg>
@@ -580,9 +780,9 @@
           </div>
           
           <!-- Feature 6 -->
-          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card">
+          <div class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 transition-all duration-300 feature-card scroll-fade" style="transition-delay: 0.5s;">
             <div class="bg-[#7D4698]/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698]" aria-label="Battery Icon">
                 <path d="M12 2a10 10 0 1 0 10 10H12V2z"></path>
                 <path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9h9V3a9 9 0 0 1 9 9z"></path>
               </svg>
@@ -595,20 +795,20 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-12 sm:py-20 bg-black outer-gradient">
+    <section id="testimonials" class="py-12 sm:py-20 bg-black outer-gradient">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-10 sm:mb-16">
+        <div class="text-center mb-10 sm:mb-16 scroll-fade">
           <h2 class="text-3xl sm:text-4xl font-bold mb-4">Trusted by Security Experts</h2>
           <p class="text-zinc-400 max-w-2xl mx-auto px-2">See why cybersecurity professionals choose Onyx for their most sensitive communications.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <!-- Testimonial 1 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative scroll-fade">
             <div class="absolute -top-4 -left-4 text-5xl text-[#7D4698] opacity-30">"</div>
             <p class="text-zinc-300 mb-6 relative z-10">As a security consultant for Fortune 500 companies, I've never seen a more robust solution for sensitive data. The air-gapped design eliminates entire attack vectors.</p>
             <div class="flex items-center">
-              <div class="w-10 h-10 bg-zinc-700 rounded-full mr-3"></div>
+              <div class="w-10 h-10 bg-zinc-700 rounded-full mr-3" aria-label="Alex Mercer profile picture"></div>
               <div>
                 <p class="font-medium">Alex Mercer</p>
                 <p class="text-sm text-zinc-500">Chief Security Officer, CyberShield Inc.</p>
@@ -617,11 +817,11 @@
           </div>
           
           <!-- Testimonial 2 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative scroll-fade" style="transition-delay: 0.2s;">
             <div class="absolute -top-4 -left-4 text-5xl text-[#7D4698] opacity-30">"</div>
             <p class="text-zinc-300 mb-6 relative z-10">Our research team needed a way to share classified information without internet exposure. Onyx provided the perfect solution with its local onion routing capabilities.</p>
             <div class="flex items-center">
-              <div class="w-10 h-10 bg-zinc-700 rounded-full mr-3"></div>
+              <div class="w-10 h-10 bg-zinc-700 rounded-full mr-3" aria-label="Dr. Elena Volkov profile picture"></div>
               <div>
                 <p class="font-medium">Dr. Elena Volkov</p>
                 <p class="text-sm text-zinc-500">Director of Research, Quantum Security Labs</p>
@@ -630,11 +830,11 @@
           </div>
           
           <!-- Testimonial 3 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 relative scroll-fade" style="transition-delay: 0.4s;">
             <div class="absolute -top-4 -left-4 text-5xl text-[#7D4698] opacity-30">"</div>
             <p class="text-zinc-300 mb-6 relative z-10">After experiencing a major data breach through a compromised cloud server, we switched to Onyx. The physical isolation gives us peace of mind that our client data is truly secure.</p>
             <div class="flex items-center">
-              <div class="w-10 h-10 bg-zinc-700 rounded-full mr-3"></div>
+              <div class="w-10 h-10 bg-zinc-700 rounded-full mr-3" aria-label="Marcus Chen profile picture"></div>
               <div>
                 <p class="font-medium">Marcus Chen</p>
                 <p class="text-sm text-zinc-500">Founder, PrivacyGuard Solutions</p>
@@ -646,16 +846,16 @@
     </section>
 
     <!-- Pricing Section -->
-    <section class="py-12 sm:py-20 bg-zinc-950 outer-gradient">
+    <section id="pricing" class="py-12 sm:py-20 bg-zinc-950 outer-gradient">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-10 sm:mb-16">
+        <div class="text-center mb-10 sm:mb-16 scroll-fade">
           <h2 class="text-3xl sm:text-4xl font-bold mb-4">Choose Your Security Level</h2>
           <p class="text-zinc-400 max-w-2xl mx-auto px-2">All Onyx devices feature our core security architecture with zero internet exposure.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- Standard Plan -->
-          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800 transition-all duration-300 pricing-card">
+          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800 transition-all duration-300 pricing-card scroll-fade">
             <h3 class="text-xl font-bold mb-2">Onyx Standard</h3>
             <p class="text-zinc-400 mb-6">Essential security for individuals</p>
             <div class="mb-6">
@@ -664,37 +864,38 @@
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Air-gapped architecture</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Local onion routing</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
+                  <path d="M20 6 9 " mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Up to 5 secure connections</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>1-year hardware warranty</span>
               </li>
             </ul>
-            <button class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-full py-3 transition-all duration-300">
+            <button class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-full py-3 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900">
               Pre-Order Now
             </button>
           </div>
           
           <!-- Professional Plan -->
-          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-[#7D4698]/30 transition-all duration-300 pricing-card relative transform scale-105 sm:scale-105">
+          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-[#7D4698]/30 transition-all duration-300 pricing-card relative transform scale-105 sm:scale-105 scroll-fade" style="transition-delay: 0.2s;">
             <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#7D4698] text-white px-4 py-1 rounded-full text-sm font-medium">
               Most Popular
             </div>
@@ -706,43 +907,43 @@
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Everything in Standard</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Up to 20 secure connections</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Hardware security module</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Physical tamper detection</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>3-year hardware warranty</span>
               </li>
             </ul>
-            <button class="w-full bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full py-3 transition-all duration-300 glow">
+            <button class="w-full bg-[#7D4698] hover:bg-[#9355B0] text-white font-medium rounded-full py-3 transition-all duration-300 glow focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900">
               Pre-Order Now
             </button>
           </div>
           
           <!-- Enterprise Plan -->
-          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800 transition-all duration-300 pricing-card">
+          <div class="bg-zinc-900 rounded-xl p-6 sm:p-8 border border-zinc-800 transition-all duration-300 pricing-card scroll-fade" style="transition-delay: 0.4s;">
             <h3 class="text-xl font-bold mb-2">Onyx Enterprise</h3>
             <p class="text-zinc-400 mb-6">Maximum security for organizations</p>
             <div class="mb-6">
@@ -751,37 +952,37 @@
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Everything in Professional</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Unlimited secure connections</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Quantum-resistant encryption</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>Custom security configuration</span>
               </li>
               <li class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#7D4698] mr-2 flex-shrink-0" aria-label="Check Icon">
                   <path d="M20 6 9 17l-5-5"></path>
                 </svg>
                 <span>5-year hardware warranty</span>
               </li>
             </ul>
-            <button class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-full py-3 transition-all duration-300">
+            <button class="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-full py-3 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900">
               Contact Sales
             </button>
           </div>
@@ -790,34 +991,34 @@
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-12 sm:py-20 bg-black outer-gradient">
+    <section id="faq" class="py-12 sm:py-20 bg-black outer-gradient">
       <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-10 sm:mb-16">
+        <div class="text-center mb-10 sm:mb-16 scroll-fade">
           <h2 class="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
           <p class="text-zinc-400">Everything you need to know about Onyx</p>
         </div>
         
         <div class="space-y-6">
           <!-- FAQ Item 1 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 scroll-fade">
             <h3 class="text-xl font-medium mb-3">How is Onyx different from using Tor?</h3>
             <p class="text-zinc-400">Unlike Tor, which routes traffic through the internet, Onyx creates a completely isolated local onion network. This eliminates all vulnerabilities associated with internet exposure while maintaining the same multi-layered encryption benefits.</p>
           </div>
           
           <!-- FAQ Item 2 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 scroll-fade" style="transition-delay: 0.1s;">
             <h3 class="text-xl font-medium mb-3">Can Onyx connect to the internet?</h3>
             <p class="text-zinc-400">No, and that's by design. Onyx is completely air-gapped from the internet, which eliminates entire categories of cyber threats. It operates exclusively on your local network, providing secure communications without external exposure.</p>
           </div>
           
           <!-- FAQ Item 3 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 scroll-fade" style="transition-delay: 0.2s;">
             <h3 class="text-xl font-medium mb-3">How do I set up and use Onyx?</h3>
             <p class="text-zinc-400">Onyx is designed for simplicity. Power it on, connect it to your local network, and access the administration panel through the secure interface. The guided setup takes less than 5 minutes, with no internet connection required at any point.</p>
           </div>
           
           <!-- FAQ Item 4 -->
-          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800">
+          <div class="bg-zinc-900/50 rounded-xl p-6 border border-zinc-800 scroll-fade" style="transition-delay: 0.3s;">
             <h3 class="text-xl font-medium mb-3">What happens if someone physically steals my Onyx device?</h3>
             <p class="text-zinc-400">Onyx includes multiple physical security measures. The device detects tampering attempts and automatically wipes sensitive data. Additionally, all stored data is encrypted, requiring your unique authentication keys to access.</p>
           </div>
@@ -829,14 +1030,14 @@
     <section class="py-12 sm:py-20 bg-zinc-950 relative overflow-hidden outer-gradient">
       <div class="absolute inset-0 animated-gradient opacity-50"></div>
       <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        <div class="text-center">
+        <div class="text-center scroll-fade">
           <h2 class="text-3xl sm:text-4xl font-bold mb-4 sm:mb-6">Secure Your Communications Today</h2>
           <p class="text-lg sm:text-xl text-zinc-300 mb-6 sm:mb-10 max-w-2xl mx-auto">Join organizations worldwide who trust Onyx for their most sensitive data and communications.</p>
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button class="bg-[#7D4698] hover:bg-[#663A7A] text-white font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 glow w-64 sm:w-auto">
+            <button class="bg-[#7D4698] hover:bg-[#9355B0] text-white font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 glow w-64 sm:w-auto focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900">
               Pre-Order Now
             </button>
-            <button class="bg-transparent hover:bg-zinc-800 text-white border border-zinc-700 font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 w-64 sm:w-auto">
+            <button class="bg-transparent hover:bg-zinc-800 text-white border border-zinc-700 font-medium rounded-full px-8 py-4 text-lg transition-all duration-300 w-64 sm:w-auto focus:outline-none focus:ring-2 focus:ring-[#7D4698] focus:ring-offset-2 focus:ring-offset-zinc-900">
               Request Demo
             </button>
           </div>
@@ -852,27 +1053,27 @@
           <!-- Company Info -->
           <div class="col-span-1 md:col-span-1">
             <div class="flex items-center mb-6">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mr-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mr-2" aria-label="Onyx Shield Logo">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               </svg>
               <span class="text-xl font-medium">Onyx</span>
             </div>
             <p class="text-zinc-400 mb-6">Redefining security with air-gapped, portable onion servers for the most sensitive communications.</p>
             <div class="flex space-x-4">
-              <a href="#" class="text-zinc-400 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-full p-1" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
                 </svg>
               </a>
-              <a href="#" class="text-zinc-400 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-full p-1" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                   <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
                 </svg>
               </a>
-              <a href="#" class="text-zinc-400 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-full p-1" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                   <rect width="4" height="12" x="2" y="9"></rect>
                   <circle cx="4" cy="4" r="2"></circle>
@@ -885,11 +1086,11 @@
           <div>
             <h3 class="text-lg font-medium mb-4">Product</h3>
             <ul class="space-y-3">
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Features</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Hardware Specs</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Security Whitepaper</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Roadmap</a></li>
+              <li><a href="#features" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Features</a></li>
+              <li><a href="#pricing" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Pricing</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Hardware Specs</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Security Whitepaper</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Roadmap</a></li>
             </ul>
           </div>
           
@@ -897,11 +1098,11 @@
           <div>
             <h3 class="text-lg font-medium mb-4">Resources</h3>
             <ul class="space-y-3">
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Documentation</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Setup Guide</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Security Blog</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Community</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Support</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Documentation</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Setup Guide</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Security Blog</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Community</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Support</a></li>
             </ul>
           </div>
           
@@ -909,11 +1110,11 @@
           <div>
             <h3 class="text-lg font-medium mb-4">Company</h3>
             <ul class="space-y-3">
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">About</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Press</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">About</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Careers</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Press</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Privacy Policy</a></li>
+              <li><a href="#" class="text-zinc-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#7D4698] rounded-md px-2 py-1">Terms of Service</a></li>
             </ul>
           </div>
         </div>
@@ -924,5 +1125,100 @@
       </div>
     </footer>
   </div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="m18 15-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <!-- JavaScript for interactions -->
+  <script>
+    // Page loader
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      setTimeout(function() {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+          loader.style.display = 'none';
+        }, 500);
+      }, 800);
+    });
+
+    // Sticky header
+    const stickyHeader = document.getElementById('sticky-header');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop > 100) {
+        if (scrollTop > lastScrollTop) {
+          // Scrolling down
+          stickyHeader.classList.remove('visible');
+        } else {
+          // Scrolling up
+          stickyHeader.classList.add('visible');
+        }
+      } else {
+        stickyHeader.classList.remove('visible');
+      }
+      
+      lastScrollTop = scrollTop;
+    });
+
+    // Back to top button
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Scroll animations
+    const scrollFadeElements = document.querySelectorAll('.scroll-fade');
+    
+    function checkScroll() {
+      scrollFadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight * 0.9) {
+          element.classList.add('active');
+        }
+      });
+    }
+    
+    // Initial check
+    checkScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', checkScroll);
+
+    // Comment: Future URL structure for dynamic site
+    // /features - Features page
+    // /pricing - Pricing page
+    // /faq - FAQ page
+    // /about - About page
+    // /contact - Contact page
+    
+    // Comment: Image optimization strategy
+    // All images should be:
+    // 1. Compressed and served in WebP format with fallbacks
+    // 2. Properly sized for their display dimensions
+    // 3. Lazy-loaded when below the fold
+    // 4. Include appropriate srcset for responsive images
+  </script>
 </body>
 </html>
